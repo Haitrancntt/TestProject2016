@@ -1,13 +1,9 @@
 package com.example.haitr.testproject2016.Main.Main;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,8 +38,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
@@ -110,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnloginfacebook_Click(View view) {
-        onFBlogin();
+        onFbLogin();
     }
 
     public void btnlogingoogle_Click(View view) {
@@ -141,48 +135,62 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void onFBlogin() {
+    private void onFbLogin() {
         mCallback = CallbackManager.Factory.create();
-        LoginManager.getInstance().logInWithReadPermissions(MainActivity.this, Arrays.asList("email", "user-photos", "public-profile"));
-        LoginManager.getInstance().registerCallback(mCallback, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(final LoginResult loginResult) {
-                GraphRequest request = new GraphRequest().newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+
+        // Set permissions
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "user_photos", "public_profile"));
+
+        LoginManager.getInstance().registerCallback(mCallback,
+                new FacebookCallback<LoginResult>() {
                     @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        handleFacebookToken(loginResult.getAccessToken());
+                    public void onSuccess(final LoginResult loginResult) {
+                        String token = loginResult.getAccessToken().getToken();
+                        System.out.println("Success");
+                        GraphRequest request = GraphRequest.newMeRequest(
+                                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(JSONObject json, GraphResponse response) {
+                                        handleFacebookAccessToken(loginResult.getAccessToken());
+                                    }
+
+                                });
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,name,email,gender");
+                        request.setParameters(parameters);
+                        request.executeAsync();
+
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+//                        Log.d(TAG_CANCEL,"On cancel");
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+//                        Log.d(TAG_ERROR,error.toString());
                     }
                 });
-                Bundle bundle = new Bundle();
-                bundle.putString("fileds", "id,name,email,gender");
-                request.setParameters(bundle);
-                request.executeAsync();
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
     }
 
-    private void handleFacebookToken(AccessToken token) {
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d("Token", "handleFacebookAccessToken:" + token);
+
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isComplete()) {
-                    Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isComplete()) {
+                            Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -196,8 +204,9 @@ public class MainActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             }
         } else {
-            mCallback.onActivityResult(requestCode, resultCode, data);
+
         }
+        mCallback.onActivityResult(requestCode, resultCode, data);
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
