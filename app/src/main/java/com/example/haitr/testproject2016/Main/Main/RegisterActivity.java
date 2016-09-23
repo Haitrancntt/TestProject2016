@@ -1,4 +1,4 @@
-package com.example.haitr.testproject2016.Main;
+package com.example.haitr.testproject2016.Main.Main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
