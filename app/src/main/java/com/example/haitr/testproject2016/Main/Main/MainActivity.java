@@ -8,9 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.haitr.testproject2016.Main.MainApp.DetailedActivity;
 import com.example.haitr.testproject2016.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -42,7 +42,7 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private EditText edUsername, edPass;
-    private ImageButton imgbtn_face, imgbtn_google;
+    private Button imgbtn_face, imgbtn_google;
     private Button btnLogin;
     private FirebaseAuth mAuth;
     private CallbackManager mCallback;
@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
         edUsername = (EditText) findViewById(R.id.edit_username);
         edPass = (EditText) findViewById(R.id.edit_pass);
         btnLogin = (Button) findViewById(R.id.button_login);
-        imgbtn_face = (ImageButton) findViewById(R.id.image_facebook);
-        imgbtn_google = (ImageButton) findViewById(R.id.image_google);
+        imgbtn_face = (Button) findViewById(R.id.image_facebook);
+        imgbtn_google = (Button) findViewById(R.id.image_google);
     }
 
     public void btnloginfacebook_Click(View view) {
@@ -123,16 +123,23 @@ public class MainActivity extends AppCompatActivity {
     private void onLogin() {
         String sUser = edUsername.getText().toString();
         String sPass = edPass.getText().toString();
-        mAuth.signInWithEmailAndPassword(sUser, sPass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isComplete()) {
-                    Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+        if (sUser.equals("") && sPass.equals("")) {
+            Toast.makeText(this, "Please insert username and password", Toast.LENGTH_SHORT).show();
+
+        } else {
+            mAuth.signInWithEmailAndPassword(sUser, sPass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isComplete()) {
+                        Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, DetailedActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     private void onFbLogin() {
