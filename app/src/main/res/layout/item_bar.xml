@@ -1,37 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="16dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100sp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/text_Price"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="40000$" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1">
 
-    <TextView
-        android:id="@+id/text_Detailed"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="hello" />
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_left" />
+        </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imag_Bar"
-        android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8">
+
+            <ImageView
+                android:id="@+id/imag_Bar"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:maxHeight="300dp"
+                android:scaleType="centerCrop" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1">
+
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_right" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/bar" />
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.like.LikeButton
+            android:id="@+id/star_button"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"
+            app:icon_size="30dp"
+            app:icon_type="heart" />
+
+        <Button
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/ic_phone" />
+
+        <Button
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/ic_location" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/text_Price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="40000$" />
+
+        <TextView
+            android:id="@+id/text_Detailed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hello" />
+
+    </LinearLayout>
+
 
     <View
-        android:layout_width="fill_parent"
-        android:layout_height="0.1dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
         android:background="#000000" />
+
 
 
 </LinearLayout>

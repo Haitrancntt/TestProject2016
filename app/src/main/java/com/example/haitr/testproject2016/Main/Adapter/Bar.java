@@ -1,5 +1,9 @@
 package com.example.haitr.testproject2016.Main.Adapter;
 
+import android.widget.Button;
+
+import com.like.LikeButton;
+
 /**
  * Created by haitr on 9/27/2016.
  */
@@ -47,5 +51,6 @@ public class Bar {
         this.sName = sName;
         this.sPrice = sPrice;
         this.sDetailed = sDetailed;
+
     }
 }

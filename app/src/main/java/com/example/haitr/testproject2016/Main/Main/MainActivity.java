@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.haitr.testproject2016.Main.MainApp.DetailedActivity;
@@ -38,6 +41,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
@@ -65,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if (user != null) {
+//                    Toast.makeText(MainActivity.this, "signed in", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(MainActivity.this, "signed out", Toast.LENGTH_SHORT).show();
+//                }
             }
         };
         MapXml();
@@ -104,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnloginfacebook_Click(View view) {
-        onFbLogin();
+        onFBlogin();
     }
 
     public void btnlogingoogle_Click(View view) {
@@ -142,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void onFbLogin() {
+    private void onFBlogin() {
         mCallback = CallbackManager.Factory.create();
 
         // Set permissions
@@ -162,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
                                     }
 
                                 });
+                        Intent intentDetailed = new Intent(MainActivity.this, DetailedActivity.class);
+                        startActivity(intentDetailed);
                         Bundle parameters = new Bundle();
                         parameters.putString("fields", "id,name,email,gender");
                         request.setParameters(parameters);
@@ -172,12 +184,12 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancel() {
-//                        Log.d(TAG_CANCEL,"On cancel");
+
                     }
 
                     @Override
                     public void onError(FacebookException error) {
-//                        Log.d(TAG_ERROR,error.toString());
+
                     }
                 });
     }
@@ -211,9 +223,8 @@ public class MainActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             }
         } else {
-
+            mCallback.onActivityResult(requestCode, resultCode, data);
         }
-        mCallback.onActivityResult(requestCode, resultCode, data);
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
@@ -225,6 +236,8 @@ public class MainActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
                             Toast.makeText(MainActivity.this, "sign in with gg thành công", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "firebase failed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

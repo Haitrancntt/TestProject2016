@@ -4,10 +4,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.haitr.testproject2016.R;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import java.util.ArrayList;
 
@@ -37,7 +40,7 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
         holder.txtName.setText(bar.getsName());
         holder.txtPrice.setText(bar.getsPrice());
         holder.txtDetailed.setText(bar.getsDetailed());
-
+//        holder.btnLike.onClick(bar.getBtnLike());
     }
 
     @Override
@@ -51,10 +54,23 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
+           // btnLike = (LikeButton) itemView.findViewById(R.id.star_button);
             img = (ImageView) itemView.findViewById(R.id.imag_Bar);
             txtName = (TextView) itemView.findViewById(R.id.text_Name);
             txtPrice = (TextView) itemView.findViewById(R.id.text_Price);
             txtDetailed = (TextView) itemView.findViewById(R.id.text_Detailed);
+
+//            btnLike.setOnLikeListener(new OnLikeListener() {
+//                @Override
+//                public void liked(LikeButton likeButton) {
+//
+//                }
+//
+//                @Override
+//                public void unLiked(LikeButton likeButton) {
+//
+//                }
+//            });
         }
     }
 }
