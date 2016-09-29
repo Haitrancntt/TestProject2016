@@ -1,115 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:padding="0dp">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="100sp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="#faf9f9"
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_left" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.8">
-
-            <ImageView
-                android:id="@+id/imag_Bar"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:maxHeight="300dp"
-                android:scaleType="centerCrop" />
+                android:layout_height="150dp">
+                <!--<Button-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:background="@drawable/ic_left" />-->
+                <ImageView
+                    android:id="@+id/imag_Bar"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent"
+
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bar2" />
+
+                <TextView
+                    android:id="@+id/text_Name"
+                    style="@style/Base.TextAppearance.AppCompat.Large"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="#50E2E6DC"
+                    android:text="Name"
+                    android:textColor="#ffff"
+                    android:textStyle="bold"
+                    android:paddingLeft="16dp"/>
+                <!--<Button-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:background="@drawable/ic_right" />-->
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                >
+
+                <com.like.LikeButton
+                    android:id="@+id/star_button"
+                    android:layout_width="40dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="2dp"
+                    app:icon_size="30dp"
+                    app:icon_type="heart" />
+
+                <Button
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="@drawable/ic_phone" />
+
+                <Button
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="@drawable/ic_location" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_Price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="40000$"
+                    style="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="#ce1919"
+                    android:layout_gravity="center"
+                    android:paddingTop="8dp"/>
+
+                <TextView
+                    android:id="@+id/text_Detailed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="hello"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="10dp"
+                    style="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1">
 
-            <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_right" />
-        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <com.like.LikeButton
-            android:id="@+id/star_button"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="2dp"
-            app:icon_size="30dp"
-            app:icon_type="heart" />
-
-        <Button
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/ic_phone" />
-
-        <Button
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/ic_location" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/text_Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Name" />
-
-        <TextView
-            android:id="@+id/text_Price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="40000$" />
-
-        <TextView
-            android:id="@+id/text_Detailed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hello" />
-
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.8dp"
-        android:background="#000000" />
-
-
-
-</LinearLayout>
+</FrameLayout>
