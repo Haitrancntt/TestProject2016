@@ -1,12 +1,14 @@
 package com.example.haitr.testproject2016.Main.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.haitr.testproject2016.R;
 import com.like.LikeButton;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
  */
 
 public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.RecyclerViewHolder> {
-    private ArrayList<Bar> barArrayList = new ArrayList<Bar>();
+    private static ArrayList<Bar> barArrayList = new ArrayList<Bar>();
 
     public ListviewAdapter(ArrayList<Bar> barArrayList) {
         this.barArrayList = barArrayList;
@@ -48,6 +50,15 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
         return barArrayList.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
+    public static ArrayList<Bar> getBarArrayList() {
+        return barArrayList;
+    }
+
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         public ImageView img;
         public TextView txtName, txtPrice, txtDetailed;
@@ -59,6 +70,14 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
             txtName = (TextView) itemView.findViewById(R.id.text_Name);
             txtPrice = (TextView) itemView.findViewById(R.id.text_Price);
             txtDetailed = (TextView) itemView.findViewById(R.id.text_Detailed);
+            txtPrice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String s = getBarName(ListviewAdapter.getBarArrayList());
+                    Log.v("bar name: ",s);
+
+                }
+            });
 
 //            btnLike.setOnLikeListener(new OnLikeListener() {
 //                @Override
@@ -71,6 +90,10 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
 //
 //                }
 //            });
+        }
+        public String getBarName(ArrayList<Bar> arrayList){
+            Bar bar = arrayList.get(getAdapterPosition());
+            return bar.getsName();
         }
     }
 }

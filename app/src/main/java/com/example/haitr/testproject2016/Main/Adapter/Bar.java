@@ -9,11 +9,13 @@ import com.like.LikeButton;
  */
 
 public class Bar {
+    public String i;
+
     public int iImage;
     public String sName;
     public String sPrice;
     public String sDetailed;
-
+    public String []arrayHinh;
     public int getImage() {
         return iImage;
     }
