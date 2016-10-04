@@ -20,32 +20,30 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="200dp">
                 <!--<Button-->
                 <!--android:layout_width="20dp"-->
                 <!--android:layout_height="20dp"-->
                 <!--android:layout_gravity="center_vertical"-->
                 <!--android:background="@drawable/ic_left" />-->
                 <ImageView
-                    android:id="@+id/imag_Bar"
+                    android:id="@+id/image_Bar"
                     android:layout_width="match_parent"
-
                     android:layout_height="match_parent"
-
                     android:scaleType="centerCrop"
                     android:src="@drawable/bar2" />
 
                 <TextView
-                    android:id="@+id/text_Name"
+                    android:id="@+id/textView_Bar_Name"
                     style="@style/Base.TextAppearance.AppCompat.Large"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:background="#50E2E6DC"
+                    android:background="#B4aa00ff"
+                    android:paddingLeft="16dp"
                     android:text="Name"
-                    android:textColor="#ffff"
-                    android:textStyle="bold"
-                    android:paddingLeft="16dp"/>
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
                 <!--<Button-->
                 <!--android:layout_width="20dp"-->
                 <!--android:layout_height="20dp"-->
@@ -54,62 +52,45 @@
 
             </FrameLayout>
 
-            <LinearLayout
+
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingTop="8dp"
-                >
+                android:paddingLeft="10dp">
 
-                <com.like.LikeButton
-                    android:id="@+id/star_button"
-                    android:layout_width="40dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="2dp"
-                    app:icon_size="30dp"
-                    app:icon_type="heart" />
+                <TableRow
+                    android:gravity="center_vertical"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp">
+                    <ImageView android:src="@drawable/ic_place_black_24dp" />
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        style="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:gravity="center_vertical"
+                        android:text="address"
+                        android:id="@+id/textView_Bar_Address"
+                        android:maxEms="13"
+                        />
+                </TableRow>
 
-                <Button
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginLeft="50dp"
-                    android:background="@drawable/ic_phone" />
+                <TableRow
+                    android:gravity="center_vertical"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp">
+                    <ImageView android:src="@drawable/ic_access_time_black_24dp" />
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        style="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:gravity="center_vertical"
+                        android:text="Giờ mở cửa: "
+                        android:id="@+id/textView_Bar_Time"
+                        android:maxEms="13"
+                        />
+                </TableRow>
 
-                <Button
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginLeft="50dp"
-                    android:background="@drawable/ic_location" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/text_Price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="40000$"
-                    style="@style/Base.TextAppearance.AppCompat.Large"
-                    android:textColor="#ce1919"
-                    android:layout_gravity="center"
-                    android:paddingTop="8dp"/>
-
-                <TextView
-                    android:id="@+id/text_Detailed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="hello"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="10dp"
-                    style="@style/Base.TextAppearance.AppCompat.Medium"/>
-
-            </LinearLayout>
+            </TableLayout>
         </LinearLayout>
 
 

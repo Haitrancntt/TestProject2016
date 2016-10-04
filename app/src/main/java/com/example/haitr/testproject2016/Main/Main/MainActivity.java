@@ -144,11 +144,14 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, DetailedActivity.class);
                         startActivity(intent);
+
+                        Log.v("credential",mAuth.getCurrentUser().getUid());
                     } else {
                         Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+
         }
     }
 
@@ -197,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d("Token", "handleFacebookAccessToken:" + token);
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -210,6 +212,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+        Log.v("credential",credential.getProvider());
+        Log.v("credential",mAuth.getCurrentUser().getUid());
     }
 
     @Override

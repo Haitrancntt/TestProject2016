@@ -7,15 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.haitr.testproject2016.Main.Main.RegisterActivity;
 import com.example.haitr.testproject2016.R;
-import com.like.LikeButton;
-import com.like.OnLikeListener;
+import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 
@@ -43,11 +39,10 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         Bar bar = barArrayList.get(position);
-        holder.img.setImageResource(bar.getImage());
-        holder.txtName.setText(bar.getsName());
-        holder.txtPrice.setText(bar.getsPrice());
-        holder.txtDetailed.setText(bar.getsDetailed());
-//        holder.btnLike.onClick(bar.getBtnLike());
+        holder.txtName.setText(bar.getName());
+        holder.txtAddress.setText(bar.getAddress());
+        holder.txtTime.append("\n"+bar.getTime());
+        Picasso.with(context).load(bar.getPicture()).into(holder.img);
     }
 
     @Override
@@ -66,43 +61,19 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
 
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         public ImageView img;
-        public TextView txtName, txtPrice, txtDetailed;
+        public TextView txtName, txtTime,txtAddress;
 
         public RecyclerViewHolder(final View itemView) {
             super(itemView);
             context = itemView.getContext();
-           // btnLike = (LikeButton) itemView.findViewById(R.id.star_button);
-            img = (ImageView) itemView.findViewById(R.id.imag_Bar);
-            txtName = (TextView) itemView.findViewById(R.id.text_Name);
-            txtPrice = (TextView) itemView.findViewById(R.id.text_Price);
-            txtDetailed = (TextView) itemView.findViewById(R.id.text_Detailed);
-            txtPrice.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String s = getBarName(ListviewAdapter.getBarArrayList());
-                    Log.v("bar name: ",s);
-                    Intent registerIntent = new Intent(context,RegisterActivity.class);
-                    context.startActivity(registerIntent);
-
-
-                }
-            });
-
-//            btnLike.setOnLikeListener(new OnLikeListener() {
-//                @Override
-//                public void liked(LikeButton likeButton) {
-//
-//                }
-//
-//                @Override
-//                public void unLiked(LikeButton likeButton) {
-//
-//                }
-//            });
+            img = (ImageView)itemView.findViewById(R.id.image_Bar);
+            txtName = (TextView)itemView.findViewById(R.id.textView_Bar_Name);
+            txtTime = (TextView)itemView.findViewById(R.id.textView_Bar_Time);
+            txtAddress = (TextView)itemView.findViewById(R.id.textView_Bar_Address);
         }
-        public String getBarName(ArrayList<Bar> arrayList){
+       /* public String getBarName(ArrayList<Bar> arrayList){
             Bar bar = arrayList.get(getAdapterPosition());
             return bar.getsName();
-        }
+        }*/
     }
 }

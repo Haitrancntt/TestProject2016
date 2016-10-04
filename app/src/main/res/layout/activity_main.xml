@@ -26,7 +26,8 @@
             android:gravity="center"
             android:hint="Username"
             android:textColor="#FFFFFF"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:text="haitran2402@gmail.com"/>
 
         <EditText
             android:id="@+id/edit_pass"
@@ -38,7 +39,8 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:textColor="#FFFFFF"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:text="12345678"/>
 
         <Button
             android:id="@+id/button_login"
