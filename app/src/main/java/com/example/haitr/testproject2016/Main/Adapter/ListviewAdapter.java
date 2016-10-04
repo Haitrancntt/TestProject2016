@@ -1,17 +1,15 @@
 package com.example.haitr.testproject2016.Main.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.haitr.testproject2016.R;
 import com.squareup.picasso.Picasso;
-
 
 import java.util.ArrayList;
 
@@ -41,7 +39,7 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
         Bar bar = barArrayList.get(position);
         holder.txtName.setText(bar.getName());
         holder.txtAddress.setText(bar.getAddress());
-        holder.txtTime.append("\n"+bar.getTime());
+        holder.txtTime.setText("Open time: \n"+bar.getTime());
         Picasso.with(context).load(bar.getPicture()).into(holder.img);
     }
 
