@@ -9,8 +9,7 @@ import com.like.LikeButton;
  */
 
 public class Bar {
-    public String i;
-
+    public String sId;
     public int iImage;
     public String sName;
     public String sPrice;

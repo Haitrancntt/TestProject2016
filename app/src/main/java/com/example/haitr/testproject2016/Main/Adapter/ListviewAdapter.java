@@ -1,5 +1,7 @@
 package com.example.haitr.testproject2016.Main.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.haitr.testproject2016.Main.Main.RegisterActivity;
 import com.example.haitr.testproject2016.R;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
@@ -26,6 +29,8 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
     public ListviewAdapter(ArrayList<Bar> barArrayList) {
         this.barArrayList = barArrayList;
     }
+    private static Context context;
+
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -63,8 +68,9 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
         public ImageView img;
         public TextView txtName, txtPrice, txtDetailed;
 
-        public RecyclerViewHolder(View itemView) {
+        public RecyclerViewHolder(final View itemView) {
             super(itemView);
+            context = itemView.getContext();
            // btnLike = (LikeButton) itemView.findViewById(R.id.star_button);
             img = (ImageView) itemView.findViewById(R.id.imag_Bar);
             txtName = (TextView) itemView.findViewById(R.id.text_Name);
@@ -75,6 +81,9 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
                 public void onClick(View view) {
                     String s = getBarName(ListviewAdapter.getBarArrayList());
                     Log.v("bar name: ",s);
+                    Intent registerIntent = new Intent(context,RegisterActivity.class);
+                    context.startActivity(registerIntent);
+
 
                 }
             });
