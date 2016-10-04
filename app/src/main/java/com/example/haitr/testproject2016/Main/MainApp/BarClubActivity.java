@@ -1,5 +1,6 @@
 package com.example.haitr.testproject2016.Main.MainApp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -9,6 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.haitr.testproject2016.Main.Adapter.ViewPageAdapter;
 import com.example.haitr.testproject2016.Main.Fragment.BarFragment;
@@ -25,11 +29,6 @@ public class BarClubActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bar_club);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -51,18 +50,16 @@ public class BarClubActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_search,menu);
         MenuItem menuSearch = menu.findItem(R.id.menu_search);
-        android.widget.SearchView searchView = (android.widget.SearchView)menuSearch.getActionView();
-        searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
+        ImageButton btnSearch = (ImageButton)menuSearch.getActionView();
+        btnSearch.setImageResource(R.drawable.ic_search_white_24dp);
+        btnSearch.setBackgroundColor(Color.TRANSPARENT);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
+            public void onClick(View view) {
 
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
             }
         });
+
         return super.onCreateOptionsMenu(menu);
 
     }
