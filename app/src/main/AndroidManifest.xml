@@ -21,22 +21,21 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-
-             />
+            android:label="@string/app_name" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/faceid" />
 
         <activity android:name=".Main.Main.RegisterActivity" />
-        <activity android:name=".Main.MainApp.DetailedActivity">
-
-        </activity>
+        <activity android:name=".Main.MainApp.DetailedActivity" />
         <activity android:name=".Main.MainApp.BarClubActivity" />
         <activity android:name=".Main.MainApp.AboutUsActivity" />
         <activity android:name=".Main.MainApp.ProfileActivity" />
-        <activity android:name=".Main.MainApp.FavourActivity"></activity>
+        <activity android:name=".Main.MainApp.FavourActivity" />
+        <activity android:name=".Main.Detailed.BarDetailedActivity" />
+        <activity android:name=".Main.Detailed.ClubDetailedActivity" />
+        <activity android:name=".Main.Detailed.DrunkDetailedActivity"></activity>
     </application>
 
 </manifest>

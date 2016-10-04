@@ -36,8 +36,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void onRegister() {
 
-        sName = edregister_Username.getText().toString();
-        sPass = edregister_Pass.getText().toString();
         mAuth.createUserWithEmailAndPassword(sName, sPass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -51,9 +49,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void btnRegister_Click(View view) {
-        if (sName != null && sPass != null) {
-            onRegister();
-        } else {
+        try {
+            sName = edregister_Username.getText().toString();
+            sPass = edregister_Pass.getText().toString();
+            if (sName != null && sPass != null) {
+                onRegister();
+            }
+        } catch (Exception e) {
             Toast.makeText(RegisterActivity.this, "Please fill all", Toast.LENGTH_SHORT).show();
         }
 
