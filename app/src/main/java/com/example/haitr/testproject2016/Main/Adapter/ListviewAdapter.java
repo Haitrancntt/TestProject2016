@@ -41,7 +41,7 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
         Bar bar = barArrayList.get(position);
         holder.txtName.setText(bar.getName());
         holder.txtAddress.setText(bar.getAddress());
-        holder.txtTime.append("\n"+bar.getTime());
+        holder.txtTime.setText("Giờ mở cửa:\n"+bar.getTime());
         Picasso.with(context).load(bar.getPicture()).into(holder.img);
     }
 
