@@ -1,28 +1,37 @@
 package com.example.haitr.testproject2016.Main.Adapter;
 
-import android.widget.Button;
-
-import com.like.LikeButton;
-
 /**
  * Created by haitr on 9/27/2016.
  */
 
 public class Bar {
-    private String address,description,district,name,phone,picture,price,time,id;
-    private double lat,lng;
+    private String address, description, district, name, phone, picture, price, time, id;
+    private double lat, lng;
     private boolean fav;
-    public Bar(){
+    private String[] sArray;
+
+    public String[] getsArray() {
+        return sArray;
+    }
+
+    public void setsArray(String[] sArray) {
+        this.sArray = sArray;
+    }
+
+    public Bar() {
 
     }
 
-    public Bar(String id,String address, String description, String district, String name, String phone, String picture, String price, String time, double lat, double lng, boolean fav) {
+    public Bar(String id, String address, String description, String district, String name,
+               String phone, String picture, String price, String time,
+               double lat, double lng, boolean fav, String[] sArray) {
         this.address = address;
         this.description = description;
         this.district = district;
         this.name = name;
         this.phone = phone;
         this.picture = picture;
+        this.sArray = sArray;
         this.price = price;
         this.time = time;
         this.lat = lat;

@@ -2,16 +2,17 @@ package com.example.haitr.testproject2016.Main.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.haitr.testproject2016.Main.Detailed.BarDetailedActivity;
 import com.example.haitr.testproject2016.R;
 import com.squareup.picasso.Picasso;
-
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
     public ListviewAdapter(ArrayList<Bar> barArrayList) {
         this.barArrayList = barArrayList;
     }
+
     private static Context context;
 
 
@@ -41,7 +43,7 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
         Bar bar = barArrayList.get(position);
         holder.txtName.setText(bar.getName());
         holder.txtAddress.setText(bar.getAddress());
-        holder.txtTime.setText("Open time: \n"+bar.getTime());
+        holder.txtTime.setText("Open time: \n" + bar.getTime());
         Picasso.with(context).load(bar.getPicture()).into(holder.img);
     }
 
@@ -61,19 +63,34 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
 
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         public ImageView img;
-        public TextView txtName, txtTime,txtAddress;
+        public TextView txtName, txtTime, txtAddress;
+        public String sId;
 
         public RecyclerViewHolder(final View itemView) {
             super(itemView);
             context = itemView.getContext();
-            img = (ImageView)itemView.findViewById(R.id.image_Bar);
-            txtName = (TextView)itemView.findViewById(R.id.textView_Bar_Name);
-            txtTime = (TextView)itemView.findViewById(R.id.textView_Bar_Time);
-            txtAddress = (TextView)itemView.findViewById(R.id.textView_Bar_Address);
+            img = (ImageView) itemView.findViewById(R.id.image_Bar);
+            txtName = (TextView) itemView.findViewById(R.id.textView_Bar_Name);
+            txtTime = (TextView) itemView.findViewById(R.id.textView_Bar_Time);
+            txtAddress = (TextView) itemView.findViewById(R.id.textView_Bar_Address);
+
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, BarDetailedActivity.class);
+                    sId = getBarName(barArrayList);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ID", sId);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+
+                }
+            });
         }
-       /* public String getBarName(ArrayList<Bar> arrayList){
+
+        public String getBarName(ArrayList<Bar> arrayList) {
             Bar bar = arrayList.get(getAdapterPosition());
-            return bar.getsName();
-        }*/
+            return bar.getId();
+        }
     }
 }

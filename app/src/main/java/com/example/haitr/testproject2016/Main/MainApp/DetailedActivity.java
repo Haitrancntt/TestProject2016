@@ -6,11 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.haitr.testproject2016.Main.Detailed.BarDetailedActivity;
 import com.example.haitr.testproject2016.Main.Main.MainActivity;
 import com.example.haitr.testproject2016.R;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DetailedActivity extends AppCompatActivity {
@@ -42,7 +42,7 @@ public class DetailedActivity extends AppCompatActivity {
                 startActivity(mapActivityIntent);
                 break;
             case R.id.btn_Profile:
-                Intent intent_Profile = new Intent(DetailedActivity.this, BarClubActivity.class);
+                Intent intent_Profile = new Intent(DetailedActivity.this, BarDetailedActivity.class);
                 startActivity(intent_Profile);
                 break;
             default:
