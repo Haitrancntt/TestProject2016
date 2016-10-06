@@ -38,8 +38,8 @@ public class DetailedActivity extends AppCompatActivity {
                 startActivity(mainActiIntent);
                 break;
             case R.id.btn_Favour:
-                Intent intent_Favour = new Intent(DetailedActivity.this, BarClubActivity.class);
-                startActivity(intent_Favour);
+                Intent mapActivityIntent = new Intent(DetailedActivity.this,MapsActivity.class);
+                startActivity(mapActivityIntent);
                 break;
             case R.id.btn_Profile:
                 Intent intent_Profile = new Intent(DetailedActivity.this, BarClubActivity.class);
