@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.haitr.testproject2016.Main.Detailed.BarDetailedActivity;
-import com.example.haitr.testproject2016.Main.Main.MainActivity;
 import com.example.haitr.testproject2016.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -30,20 +28,18 @@ public class DetailedActivity extends AppCompatActivity {
                 startActivity(intent_Drunk);
                 break;
             case R.id.btn_About:
+
+                Intent aboutIntent = new Intent(DetailedActivity.this, AboutUsActivity.class);
+                startActivity(aboutIntent);
+                break;
+            case R.id.btn_Favour:
+
+                break;
+            case R.id.btn_Profile:
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 String s = mAuth.getCurrentUser().getEmail();
                 Toast.makeText(this, "click", Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
-                Intent mainActiIntent = new Intent(DetailedActivity.this, MainActivity.class);
-                startActivity(mainActiIntent);
-                break;
-            case R.id.btn_Favour:
-                Intent mapActivityIntent = new Intent(DetailedActivity.this,MapsActivity.class);
-                startActivity(mapActivityIntent);
-                break;
-            case R.id.btn_Profile:
-                Intent intent_Profile = new Intent(DetailedActivity.this, BarDetailedActivity.class);
-                startActivity(intent_Profile);
                 break;
             default:
                 break;

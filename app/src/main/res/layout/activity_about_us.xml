@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_about_us"
     android:layout_width="match_parent"
@@ -11,4 +11,59 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.haitr.testproject2016.Main.MainApp.AboutUsActivity">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.5"
+        android:src="@drawable/aboutus" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="sans-serif-thin"
+            android:text="HBB Solution"
+            android:textColor="#960c0c"
+            android:textSize="40dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="72dp"
+            android:text="Email: abc@gmail.com" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_Email"
+                android:layout_centerHorizontal="true"
+                android:text="Sau khi cài đặt Windows 10, chắc hẳn bạn sẽ thấy bảng Start Menu của mình có 1 đống những ứng dụng không mong muốn. Mất công gỡ bỏ một số thứ như Thời Tiết hay Chứng khoán, nhưng vẫn có rất nhiều app không thể xóa bằng cách nhấn nút Uninstall.
+Chưa hết, nếu bạn gỡ chúng đi, và vào một ngày đẹp trời nào đó, Windows 10 có 1 bản cập nhật lớn, rất có thể những ứng dụng không mong muốn đó sẽ lại quay trở lại.
+Các ứng dụng này chiếm phần nào bộ nhớ, tài nguyên khi chạy nền và đôi khi thông báo của chúng sẽ gây ra phiền toái tới người dùng."
+                android:textColor="#56a42c"
+                android:textSize="20dp" />
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</FrameLayout>

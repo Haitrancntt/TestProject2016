@@ -49,7 +49,7 @@
             android:background="@drawable/round_profile"
             android:fontFamily="casual"
             android:onClick="btn_Click"
-            android:text="User Profile"
+            android:text="Signout"
             android:textColor="#FFFFFF" />
     </RelativeLayout>
 

@@ -9,21 +9,15 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.haitr.testproject2016.Main.Utilities.DirectionsJSONParser;
 import com.example.haitr.testproject2016.R;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -50,8 +44,7 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
-    private double longitude;
-    private double latitude;
+    private double longitude, latitude;
     public static final int REQUEST_ID_ACCESS_COURSE_FINE_LOCATION = 100;
     private LatLng myLocate, destLocate;
 
@@ -62,7 +55,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        latitude = getIntent().getExtras().getDouble("Lat");
+        longitude = getIntent().getExtras().getDouble("Long");
         mapFragment.getMapAsync(this);
+
+
     }
 
 
@@ -79,15 +76,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        myLocate = new LatLng(getMyLocation().getLatitude(), getMyLocation().getLongitude());
-        destLocate = new LatLng(10.772066, 106.693968);
+        try {
+            myLocate = new LatLng(getMyLocation().getLatitude(), getMyLocation().getLongitude());
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage() + "", Toast.LENGTH_SHORT).show();
+        }
+
+        destLocate = new LatLng(latitude, longitude);
+        Log.v("############", "" + latitude + "Long" + longitude);
         askPermissionsAndShowMyLocation();
+        drawStartMarkers(myLocate);
+        drawStopMarkers();
+
 
         // Getting URL to the Google Directions API
         String url = getDirectionsUrl(myLocate, destLocate);
         DownloadTask downloadTask = new DownloadTask();
         // Start downloading json data from Google Directions API
         downloadTask.execute(url);
+
 
         //style google map
         mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -97,7 +104,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
             public boolean onMyLocationButtonClick() {
-                askPermissionsAndShowMyLocation();
+                Location newLocation = new Location(getMyLocation());
+                showMyLocation(newLocation);
+                drawStartMarkers(new LatLng(newLocation.getLatitude(),newLocation.getLongitude()));
                 return false;
             }
         });
@@ -142,7 +151,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         // Hiển thị vị trí hiện thời trên bản đồ.
-        this.showMyLocation();
+        this.showMyLocation(getMyLocation());
     }
 
 
@@ -165,7 +174,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Toast.makeText(this, "Permission granted!", Toast.LENGTH_LONG).show();
 
                     // Hiển thị vị trí hiện thời trên bản đồ.
-                    this.showMyLocation();
+                    this.showMyLocation(getMyLocation());
                 }
                 // Hủy bỏ hoặc từ chối.
                 else {
@@ -202,6 +211,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Location myLocation = null;
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         String locationProvider = this.getEnabledLocationProvider();
+
         if (locationProvider == null) {
             return myLocation;
         }
@@ -231,10 +241,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     // Chỉ gọi phương thức này khi đã có quyền xem vị trí người dùng.
-    private void showMyLocation() {
-        Location myLocation = getMyLocation();
-        if (myLocation != null) {
-            LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+    private void showMyLocation(Location location) {
+        if (location != null) {
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(latLng)             // Sets the center of the map to location user
@@ -242,7 +251,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .build();                   // Creates a CameraPosition from the builder
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             // Thêm Marker cho Map:
-            drawStartStopMarkers();
+
         } else {
             Toast.makeText(this, "Location not found!", Toast.LENGTH_LONG).show();
             Log.i("map", "Location not found");
@@ -250,7 +259,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     // Drawing Start and Stop locations
-    private void drawStartStopMarkers() {
+    private void drawStartMarkers(LatLng myLocate) {
 
         //set marker for current location
         MarkerOptions myLoOption = new MarkerOptions();
@@ -259,6 +268,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         myLoOption.title("Your current location");
         Marker currentMarker = mMap.addMarker(myLoOption);
         currentMarker.showInfoWindow();
+        mMap.addMarker(myLoOption);
 
         //set marker for destination
         MarkerOptions destLoOption = new MarkerOptions();
@@ -268,7 +278,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         destLoOption.snippet("bỏ địa chỉ vô đây");
         Marker desMarker = mMap.addMarker(myLoOption);
         desMarker.showInfoWindow();
-        mMap.addMarker(myLoOption);
+
+        mMap.addMarker(destLoOption);
+    }
+
+    private void drawStopMarkers() {
+
+        //set marker for destination
+        MarkerOptions destLoOption = new MarkerOptions();
+        destLoOption.position(destLocate);
+        destLoOption.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        destLoOption.title("Destination:");
+        destLoOption.snippet("bỏ địa chỉ vô đây");
+        Marker desMarker = mMap.addMarker(destLoOption);
+        desMarker.showInfoWindow();
+
         mMap.addMarker(destLoOption);
     }
 
@@ -436,7 +460,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
-                lineOptions.width(10);
+                lineOptions.width(15);
                 lineOptions.color(Color.BLUE);
                 // Changing the color polyline according to the mode
 

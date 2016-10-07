@@ -15,6 +15,7 @@
         android:id="@+id/layout_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#f9d3b2"
         android:orientation="horizontal">
 
         <Button
@@ -47,7 +48,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_img"
+        android:background="#dedbdb"
         android:orientation="vertical">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF">
+
+            <Button
+                android:id="@+id/button_location"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/ic_location"
+                android:onClick="btnLocation_Click" />
+
+            <Button
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/ic_phone" />
+        </GridLayout>
 
         <TextView
             android:id="@+id/text_Name"
