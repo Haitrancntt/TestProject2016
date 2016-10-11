@@ -29,7 +29,7 @@
         <ImageView
             android:id="@+id/img_View"
             android:layout_width="450dp"
-            android:layout_height="350dp"
+            android:layout_height="250dp"
             android:layout_weight="0.8"
             android:scaleType="centerCrop"
             android:src="@drawable/bar2" />
@@ -42,32 +42,47 @@
             android:layout_weight="0.1"
             android:background="@drawable/ic_right" />
 
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_img"
-        android:background="#dedbdb"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF">
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:columnCount="3">
 
-            <Button
-                android:id="@+id/button_location"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:background="@drawable/ic_location"
-                android:onClick="btnLocation_Click" />
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="btnLocation_Click"
+                android:src="@drawable/ic_location" />
 
-            <Button
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/ic_phone" />
+            <com.like.LikeButton
+                android:id="@+id/btn_Favour"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                app:icon_size="30sp"
+                android:layout_columnWeight="1"
+                ></com.like.LikeButton>
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="btnCall_Click"
+                android:src="@drawable/ic_local_phone_black_24dp" />
+
         </GridLayout>
 
         <TextView

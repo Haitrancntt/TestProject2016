@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.haitr.testproject2016.Main.Main.MainActivity;
 import com.example.haitr.testproject2016.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -28,7 +29,6 @@ public class DetailedActivity extends AppCompatActivity {
                 startActivity(intent_Drunk);
                 break;
             case R.id.btn_About:
-
                 Intent aboutIntent = new Intent(DetailedActivity.this, AboutUsActivity.class);
                 startActivity(aboutIntent);
                 break;
@@ -40,6 +40,8 @@ public class DetailedActivity extends AppCompatActivity {
                 String s = mAuth.getCurrentUser().getEmail();
                 Toast.makeText(this, "click", Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
+                Intent loginIntent = new Intent(DetailedActivity.this,MainActivity.class);
+                startActivity(loginIntent);
                 break;
             default:
                 break;

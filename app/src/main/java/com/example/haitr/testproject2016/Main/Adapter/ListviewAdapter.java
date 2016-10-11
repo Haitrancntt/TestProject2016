@@ -73,7 +73,6 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewAdapter.Recycl
             txtName = (TextView) itemView.findViewById(R.id.textView_Bar_Name);
             txtTime = (TextView) itemView.findViewById(R.id.textView_Bar_Time);
             txtAddress = (TextView) itemView.findViewById(R.id.textView_Bar_Address);
-
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

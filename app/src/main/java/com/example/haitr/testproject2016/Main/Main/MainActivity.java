@@ -1,6 +1,7 @@
 package com.example.haitr.testproject2016.Main.Main;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +42,10 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -54,10 +59,63 @@ public class MainActivity extends AppCompatActivity {
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions googleSignInOptions;
     private int RC_SIGN_IN = 1;
-
+    private String DATABASE_NAME = "TestProject.sqlite";
+    private String DB_PATH_SUFFIX = "/databases/";
+    public static SQLiteDatabase database = null;
     // [START declare_auth_listener]
     private FirebaseAuth.AuthStateListener mAuthListener;
     // [END declare_auth_listener]
+
+    private void xuLySaoChepCSDLTuAssetsVaoHeThongMobile() {
+        //Lấy đường dẫn tới tên database trong hệ thống
+        File dbFile = getDatabasePath(DATABASE_NAME);
+        //Xét xem nếu tồn tại tên database đó thì xử lý
+        if (!dbFile.exists()) {
+            try {
+                //nếu chưa tồn tại database thì bắt đầu sao chép database từ Assets vào hệ thống
+                CopyDataBaseFromAsset();
+                Toast.makeText(this, "Sao chép CSDL vào hệ thống thành công!.", Toast.LENGTH_LONG).show();
+            } catch (Exception ex) {
+                Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void CopyDataBaseFromAsset() {
+        try {
+            //Đưa CSDL trong assets sang InputStream để bắt đầu sao chép
+            InputStream myInput = getAssets().open(DATABASE_NAME);
+            //Lấy đường dẫn databases
+            String outFileName = layDuongDanLuuTru();
+            //Tạo 1 file truy xuất đến đường dẫn /databases/
+            File f = new File(getApplicationInfo().dataDir + DB_PATH_SUFFIX);
+            //Kiểm tra xem đường dẫn đó có tồn tại không
+            if (!f.exists()) {
+                //nếu không tồn tại thì tạo đường dẫn đó ra
+                f.mkdir();
+            }
+            //Tạo OutputStream với đầu ra là đường dẫn databases
+            OutputStream myOutPut = new FileOutputStream(outFileName);
+            //tạo 1 mảng byte để đưa từng dữ liệu vào
+            byte[] buffer = new byte[1024];
+            int lenght;
+            //Chạy vòng lặp cho tới khi đọc hết InputStream
+            while ((lenght = myInput.read(buffer)) > 0) {
+                //Ghi vào OutputStream
+                myOutPut.write(buffer, 0, lenght);
+            }
+            myOutPut.flush();
+            myInput.close();
+            myOutPut.close();
+        } catch (Exception ex) {
+            Log.e("Loi_SaoChep: ", ex.toString());
+        }
+    }
+
+    private String layDuongDanLuuTru() {
+        //Trả về đường dẫn của database trong hệ thống
+        return getApplicationInfo().dataDir + DB_PATH_SUFFIX + DATABASE_NAME;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(this);
         mCallback = new CallbackManager.Factory().create();
         setContentView(R.layout.activity_main);
+        xuLySaoChepCSDLTuAssetsVaoHeThongMobile();
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -145,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, DetailedActivity.class);
                         startActivity(intent);
 
-                        Log.v("credential",mAuth.getCurrentUser().getUid());
+                        Log.v("credential", mAuth.getCurrentUser().getUid());
                     } else {
                         Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                     }
@@ -212,8 +271,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-        Log.v("credential",credential.getProvider());
-        Log.v("credential",mAuth.getCurrentUser().getUid());
+        Log.v("credential", credential.getProvider());
+        Log.v("credential", mAuth.getCurrentUser().getUid());
     }
 
     @Override
@@ -226,9 +285,12 @@ public class MainActivity extends AppCompatActivity {
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             }
-        } else {
-            mCallback.onActivityResult(requestCode, resultCode, data);
+            else {
+                Toast.makeText(this, "Login không thành công\nMáy được máy không anh ơi\nEm chưa biết fix", Toast.LENGTH_SHORT).show();
+            }
         }
+        mCallback.onActivityResult(requestCode, resultCode, data);
+
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {

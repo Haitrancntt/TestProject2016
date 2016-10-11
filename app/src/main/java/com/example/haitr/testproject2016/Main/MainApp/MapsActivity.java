@@ -47,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double longitude, latitude;
     public static final int REQUEST_ID_ACCESS_COURSE_FINE_LOCATION = 100;
     private LatLng myLocate, destLocate;
-
+    private String address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         latitude = getIntent().getExtras().getDouble("Lat");
         longitude = getIntent().getExtras().getDouble("Long");
+        address = getIntent().getExtras().getString("Address");
         mapFragment.getMapAsync(this);
 
 
@@ -270,16 +271,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         currentMarker.showInfoWindow();
         mMap.addMarker(myLoOption);
 
-        //set marker for destination
-        MarkerOptions destLoOption = new MarkerOptions();
-        destLoOption.position(destLocate);
-        destLoOption.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-        destLoOption.title("Destination:");
-        destLoOption.snippet("bỏ địa chỉ vô đây");
-        Marker desMarker = mMap.addMarker(myLoOption);
-        desMarker.showInfoWindow();
-
-        mMap.addMarker(destLoOption);
     }
 
     private void drawStopMarkers() {
@@ -289,7 +280,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         destLoOption.position(destLocate);
         destLoOption.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         destLoOption.title("Destination:");
-        destLoOption.snippet("bỏ địa chỉ vô đây");
+        destLoOption.snippet(address);
         Marker desMarker = mMap.addMarker(destLoOption);
         desMarker.showInfoWindow();
 

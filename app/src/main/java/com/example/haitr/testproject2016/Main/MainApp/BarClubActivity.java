@@ -53,6 +53,7 @@ public class BarClubActivity extends AppCompatActivity {
         ImageButton btnSearch = (ImageButton)menuSearch.getActionView();
         btnSearch.setImageResource(R.drawable.ic_search_white_24dp);
         btnSearch.setBackgroundColor(Color.TRANSPARENT);
+        btnSearch.setPadding(0,0,16,0);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
